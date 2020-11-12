@@ -1,28 +1,18 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import axios from 'axios'
+import UserService from './api'
 
 const App = () => {
-
-  const headers = {
-    'Content-Type': 'application/json',
-  }
+  const [preventions, setPreventions] = useState([])
 
   useEffect(() => {
-    const fetchAddresses = async () => {
-      try {
-        await fetch("http://localhost:8080/api/users", {
-          method: "GET",
-          headers: headers,
-          mode:'no-cors'
-        }).then((res) => res.json().then((response) => {
-          console.log(response)
-        }))
-      } catch (err) {
-        console.log(err)
-      }
-    }
-    fetchAddresses()
+    UserService.getUsers().then((response) => {
+      console.log(response.data)
+    });
+    UserService.getPreventions().then((response) => {
+      console.log(response.data)
+      setPreventions(response.data)
+    });
   }, [])
 
 
@@ -133,115 +123,99 @@ const App = () => {
 
         <section class="p-10 md-py-10">
           <div class="">
-            <h1 style={{fontSize: 50}} class="white ml-10 fw-900 lh-2">Medidas de prevenção</h1>
+            <h1 style={{ fontSize: 50 }} class="white ml-10 fw-900 lh-2">Medidas de prevenção</h1>
           </div>
         </section>
 
         <section id="blog" class="p-0 md-p-5">
-        <div class="flex flex-wrap">
-            <div class="w-100pc md-w-33pc p-10">
+          <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+            {preventions.map((prevention) => (
+              <div class="w-130pc md-w-33pc p-10">
                 <a href="#" class="block no-underline p-5 br-8 hover-bg-indigo-lightest-10 hover-scale-up-1 ease-300">
-                    <img class="w-100pc" src="https://image.freepik.com/free-vector/new-normal-concept-woman-wear-masks-using-alcohol-antiseptic-gel-clean-hands-prevent-corona-virus-illustration-flat-style-isolated-white-background_185694-73.jpg" alt=""/>
-                    <p class="fw-600 white fs-m3 mt-3">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed…
-                    </p>
-                    <div class="indigo fs-s3 italic after-arrow-right my-4">3 days ago by Jeff</div>
+                  <img class="w-100pc" src={prevention.imgUrl} alt="" />
+                  <span class="fw-800 white fs-m4 mt-3">{prevention.title}</span>
+                  <p class="fw-300 white fs-m1 mt-3">
+                    {prevention.description}
+                  </p>
                 </a>
-            </div>
-            <div class="w-100pc md-w-33pc p-10">
-                <a href="#" class="block no-underline p-5 br-8 hover-bg-indigo-lightest-10 hover-scale-up-1 ease-300">
-                    <img class="w-100pc" src="https://cdn3.vectorstock.com/i/1000x1000/71/07/young-man-using-face-mask-isolated-icon-vector-30897107.jpg" alt=""/>
-                    <p class="fw-600 white fs-m3 mt-3">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed…
-                    </p>
-                    <div class="indigo fs-s3 italic after-arrow-right my-4">3 days ago by Jeff</div>
-                </a>
-            </div>
-            <div class="w-100pc md-w-33pc p-10">
-                <a href="#" class="block no-underline p-5 br-8 hover-bg-indigo-lightest-10 hover-scale-up-1 ease-300">
-                    <img class="w-100pc" src="https://image.freepik.com/free-vector/illustrated-social-distancing-concept_23-2148494589.jpg" alt=""/>
-                    <p class="fw-600 white fs-m3 mt-3">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed…
-                    </p>
-                    <div class="indigo fs-s3 italic after-arrow-right my-4">3 days ago by Jeff</div>
-                </a>
-            </div>
-        </div>
+              </div>
+            ))}
+          </div>
         </section>
 
         <footer class="p-5 md-p-l5 bg-indigo-lightest-10">
-        <div class="flex flex-wrap">
+          <div class="flex flex-wrap">
             <div class="md-w-25pc mb-10">
-                <img src="assets/images/logo.png" class="w-l5" alt=""/>
-                <div class="white opacity-70 fs-s2 mt-4 md-pr-10">
-                    <p>Soluta voluptate et optio. Eos quasi impedit sapiente aliquid eius eligendi at. Necessitatibus
+              <img src="assets/images/logo.png" class="w-l5" alt="" />
+              <div class="white opacity-70 fs-s2 mt-4 md-pr-10">
+                <p>Soluta voluptate et optio. Eos quasi impedit sapiente aliquid eius eligendi at. Necessitatibus
                         magni et sed quod quas minima.</p>
-                    <br/>
-                    <p>Soluta voluptate et optio. Eos quasi impedit sapiente aliquid eius eligendi at. Necessitatibus
+                <br />
+                <p>Soluta voluptate et optio. Eos quasi impedit sapiente aliquid eius eligendi at. Necessitatibus
                         magni et sed quod quas minima.</p>
-                </div>
+              </div>
             </div>
             <div class="w-100pc md-w-50pc">
-                <div class="flex justify-around">
-                    <div class="w-33pc md-px-10 mb-10">
-                        <h5 class="white">Company</h5>
-                        <ul class="list-none mt-5 fs-s2">
-                            <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">About
+              <div class="flex justify-around">
+                <div class="w-33pc md-px-10 mb-10">
+                  <h5 class="white">Company</h5>
+                  <ul class="list-none mt-5 fs-s2">
+                    <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">About
                                     Us</a></li>
-                            <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">Jobs</a>
-                            </li>
-                            <li class="my-3"><a href="#"
-                                    class="white opacity-70 no-underline hover-underline">Contact</a></li>
-                            <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">Media</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="w-33pc md-px-10 mb-10">
-                        <h5 class="white">Product</h5>
-                        <ul class="list-none mt-5 fs-s2">
-                            <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">About
-                                    Us</a></li>
-                            <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">Jobs</a>
-                            </li>
-                            <li class="my-3"><a href="#"
-                                    class="white opacity-70 no-underline hover-underline">Contact</a></li>
-                            <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">Media</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="w-33pc md-px-10 mb-10">
-                        <h5 class="white">Support</h5>
-                        <ul class="list-none mt-5 fs-s2">
-                            <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">About
-                                    Us</a></li>
-                            <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">Jobs</a>
-                            </li>
-                            <li class="my-3"><a href="#"
-                                    class="white opacity-70 no-underline hover-underline">Contact</a></li>
-                            <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">Media</a>
-                            </li>
-                        </ul>
-                    </div>
+                    <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">Jobs</a>
+                    </li>
+                    <li class="my-3"><a href="#"
+                      class="white opacity-70 no-underline hover-underline">Contact</a></li>
+                    <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">Media</a>
+                    </li>
+                  </ul>
                 </div>
+                <div class="w-33pc md-px-10 mb-10">
+                  <h5 class="white">Product</h5>
+                  <ul class="list-none mt-5 fs-s2">
+                    <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">About
+                                    Us</a></li>
+                    <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">Jobs</a>
+                    </li>
+                    <li class="my-3"><a href="#"
+                      class="white opacity-70 no-underline hover-underline">Contact</a></li>
+                    <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">Media</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="w-33pc md-px-10 mb-10">
+                  <h5 class="white">Support</h5>
+                  <ul class="list-none mt-5 fs-s2">
+                    <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">About
+                                    Us</a></li>
+                    <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">Jobs</a>
+                    </li>
+                    <li class="my-3"><a href="#"
+                      class="white opacity-70 no-underline hover-underline">Contact</a></li>
+                    <li class="my-3"><a href="#" class="white opacity-70 no-underline hover-underline">Media</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
             <div class="w-100pc md-w-25pc">
-                <div class="flex w-75pc md-w-100pc mx-auto">
-                    <input type="text"
-                        class="input flex-grow-1 bw-0 fw-200 bg-indigo-lightest-10 white ph-indigo-lightest focus-white opacity-80 fs-s3 py-5 br-r-0"
-                        placeholder="Email Address"/>
-                    <button class="button bg-indigo indigo-lightest fw-300 fs-s3 br-l-0">Start</button>
-                </div>
-                <div class="flex justify-around my-8">
-                    <a href="#" class="relative p-5 bg-indigo br-round white hover-scale-up-1 ease-400"><i
-                            data-feather="twitter" class="absolute-center h-4"></i></a>
-                    <a href="#" class="relative p-5 bg-indigo br-round white hover-scale-up-1 ease-400"><i
-                            data-feather="facebook" class="absolute-center h-4"></i></a>
-                    <a href="#" class="relative p-5 bg-indigo br-round white hover-scale-up-1 ease-400"><i
-                            data-feather="instagram" class="absolute-center h-4"></i></a>
-                </div>
+              <div class="flex w-75pc md-w-100pc mx-auto">
+                <input type="text"
+                  class="input flex-grow-1 bw-0 fw-200 bg-indigo-lightest-10 white ph-indigo-lightest focus-white opacity-80 fs-s3 py-5 br-r-0"
+                  placeholder="Email Address" />
+                <button class="button bg-indigo indigo-lightest fw-300 fs-s3 br-l-0">Start</button>
+              </div>
+              <div class="flex justify-around my-8">
+                <a href="#" class="relative p-5 bg-indigo br-round white hover-scale-up-1 ease-400"><i
+                  data-feather="twitter" class="absolute-center h-4"></i></a>
+                <a href="#" class="relative p-5 bg-indigo br-round white hover-scale-up-1 ease-400"><i
+                  data-feather="facebook" class="absolute-center h-4"></i></a>
+                <a href="#" class="relative p-5 bg-indigo br-round white hover-scale-up-1 ease-400"><i
+                  data-feather="instagram" class="absolute-center h-4"></i></a>
+              </div>
             </div>
-        </div>
-    </footer>
+          </div>
+        </footer>
 
       </body>
     </div>
