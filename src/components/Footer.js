@@ -1,4 +1,4 @@
-import { FiTwitter, FiInstagram, FiLinkedin } from "react-icons/fi";
+import { FiLinkedin, FiGithub } from "react-icons/fi";
 
 const Footer = () => {
     return (
@@ -8,7 +8,7 @@ const Footer = () => {
                     <div class="md-w-25pc mb-10">
                         <img src="assets/images/logo.png" class="w-l5" alt="" />
                         <div class="white opacity-70 fs-s2 mt-4 md-pr-10">
-                            <p>Este projeto foi desenvolvido na disciplina de Programação Orientada a Objetos do curso de Análise e Desenvolvimento do Sistemas da FATEC Mogi Mirim. Criado por Augusto Vesco Raveli.</p>
+                            <p>Este projeto foi desenvolvido na disciplina de Programação Orientada a Objetos do curso de Análise e Desenvolvimento do Sistemas da FATEC Mogi Mirim. Criado por Augusto Vesco Raveli, Samuel Marques e Lucas Bocalini.</p>
                         </div>
                     </div>
                     <div class="w-100pc md-w-50pc">
@@ -44,11 +44,11 @@ const Footer = () => {
                             <button class="button bg-indigo indigo-lightest fw-300 fs-s3 br-l-0">Enviar</button>
                         </div>
                         <div class="flex justify-around my-8">
-                            <a href="/" style={{height: 60, width: 60, display: 'flex', justifyContent: 'center', alignItems: 'center'}} class="bg-indigo br-round white hover-scale-up-1 ease-400">
-                                <FiTwitter/>
+                            <a href="https://github.com/gutovesco/CovidFollower" style={{height: 60, width: 60, display: 'flex', justifyContent: 'center', alignItems: 'center'}} class="bg-indigo br-round white hover-scale-up-1 ease-400">
+                                <FiGithub/>
                             </a>
-                            <a href="/" style={{height: 60, width: 60, display: 'flex', justifyContent: 'center', alignItems: 'center'}} class="bg-indigo br-round white hover-scale-up-1 ease-400">
-                                <FiInstagram/>
+                            <a href="https://github.com/gutovesco/springboot-api" style={{height: 60, width: 60, display: 'flex', justifyContent: 'center', alignItems: 'center'}} class="bg-indigo br-round white hover-scale-up-1 ease-400">
+                                <FiGithub/>
                             </a>
                             <a href="https://www.linkedin.com/in/augusto-raveli-a01254180/" style={{height: 60, width: 60, display: 'flex', justifyContent: 'center', alignItems: 'center'}} class="bg-indigo br-round white hover-scale-up-1 ease-400">
                                 <FiLinkedin/>

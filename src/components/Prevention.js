@@ -14,7 +14,7 @@ const Prevention = () => {
     return (
         <div>
             <section class="p-10 md-py-10">
-                <div class="">
+                <div>
                     <h1 style={{ fontSize: 50 }} class="white ml-10 fw-900 lh-2">Medidas de prevenção</h1>
                 </div>
             </section>
